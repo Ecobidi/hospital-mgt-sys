@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/app.css" type="text/css" />
+  <title><%= appname %></title>
+</head>
+<body style="background: url(/images/bg.jpg) no-repeat center center; background-size: cover;">
+  <main class="container-fluid">
+    <section class="row space">
+      <div class="col-md-4 offset-md-4 col-sm-12 ">
+        <div class="card py-4 px-4" style="background-color: rgba(0, 0, 0, 0.4);">
+          <div class="mb-4 text-center">
+            <div class="text-white">
+              <h2 class="title text-primary">Hospital Workflow</h2>
+              <p class="lead">Management System</p>
+            </div>
+          </div>
+          <form class="text-center" action="/login" method="POST">
+            <div>
+              <% if (error_msg.length > 0) { %>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong><%= error_msg %></strong> 
+                </div>
+                <script>
+                  $(".alert").alert();
+                </script>
+              <% } %>
+            </div>
+            
+            <fieldset>
+              <legend class="text-white">Select Login Type: <strong class="text-danger">*</strong></legend>
+              <div>
+                <label for="type-admin" class="mx-2">
+                  <strong class="text-primary">Admin</strong>
+                  <input id="type-admin" class="form-control" type="radio" name="type" value="admin" required>
+                </label>
+                <label for="type-doctor" class="mx-2">
+                  <strong class="text-primary">Doctor</strong>
+                  <input id="type-doctor" class="form-control" type="radio" name="type" value="doctor" required>
+                </label>
+              </div>
+            </fieldset>
+            <div class="form-group pb-1">
+              
+              <input required name="username" type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group pb-1">
+              
+              <input required name="password" type="password" class="form-control" placeholder="********">
+            </div>
+            <div class="form-group">
+              <div class="mx-auto">
+                <button type="submit" class="btn btn-primary form-control">Continue</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
