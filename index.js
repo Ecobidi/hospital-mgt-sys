@@ -1,4 +1,6 @@
 let express = require('express')
+require('dotenv').config()
+
 let expressSession = require('express-session')
 let connectFlash = require('connect-flash')
 let mongoose = require('mongoose')
@@ -19,7 +21,17 @@ const PatientController = require('./controllers/patient')
 const DoctorController = require('./controllers/doctor')
 
 // connect to mongodb database
-mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
+// mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.qmunc.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+
+try {
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  console.log('connected to ' + process.env.DB_NAME + ' database.')
+} catch (error) {
+  console.log('Error connecting to ' + process.env.DB_NAME + ' database.')
+  console.log(error)
+}
 
 // init express App
 let app = express()
@@ -106,4 +118,4 @@ app.get('/api/patients/:patient_reg_no', PatientController.getOneByRegNoAPI)
 
 app.get('/api/doctors/:doctor_username', DoctorController.getDoctorByUsernameAPI)
 
-app.listen(PORT, () => { console.log(`${APPNAME} running on port ${PORT}`) })
+app.listen(process.env.PORT, () => { console.log(`${APPNAME} running on port ${process.env.PORT}`) })
